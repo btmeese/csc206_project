@@ -10,7 +10,8 @@ def PrimeNumberCalculation(n):
         while (x * x < n):
             if (x < sqrt(n)):
                 for i in range(x * x, n, x):
-                    prime.remove(i)
+                    if i in prime:
+                        prime.remove(i)
             x += 1
     
         number_of_elements = len(prime)
