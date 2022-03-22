@@ -1,0 +1,37 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}CSC 206 Project{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+             data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Prime Number Search</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Hello, {{ name }}! Here are your results:</h1>
+    </div>
+    <div class="results">
+        <p>The total number of primes under {{ upperlimit }} is {{ number_of_elements }}.</p>
+        <p>Here is the list of prime numbers: {{ primes }}.</p>
+        <p>Program run time: {{ runtime }}.</p>
+    </div>
+    <div class="form">
+        <h1>Run again?</h1>
+        {{ wtf.quick_form(form) }}
+    </div>
+</div>
+{% endblock %}
