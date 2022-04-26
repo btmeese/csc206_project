@@ -1,0 +1,56 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}CSC206 Databases{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">CSC206 Database Project</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Richest Athlete by Year</a></li>
+        <li><a href="/page1">Richest Sport by Year</a></li>
+        <li class="active"><a href="/page2">Average Earnings of Top 10 Per Year</a></li>
+        <li><a href="/page3">Range of Earnings by Sport</a></li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="m-2">
+    <h1>Average Earnings of Top 10 Per Year</h1>
+    <p>A table showing the average earnings of the top 10 highest paid athletes for 
+    each year, as well as the highest earning athlete for that year.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="m-2">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Year</th>
+          <th scope="col">Average Earnings</th>
+          <th scope="col">Highest Paid Athlete Per Year</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for row in athletes %}
+          <tr>
+              {% for d in row %}
+                <td>{{ d }}</td>
+              {% endfor %}
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}
