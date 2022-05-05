@@ -1,10 +1,15 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import declarative_base
 import mysql.connector
 import configparser
-import csv
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from data_analysis.bargraph import CreateBarGraph
+from data_analysis.lineplot import CreateLinePlot
+from data_analysis.scatterplot import CreateScatterPlot
 
 Base = declarative_base()
 
@@ -42,14 +47,17 @@ def ReadCSV():
 
     mycursor.execute("""truncate table athletes""")
 
-    with open('data/richathletes.csv', 'r') as athletes:
-        csv_reader = csv.reader(athletes, delimiter=',')
+    data = pd.read_csv('data/richathletes.csv')
+    df = pd.DataFrame(data)
 
-        next(csv_reader)
-
-        for row in csv_reader:
-            mycursor.execute("""INSERT INTO athletes (name, nationality, currentrank, prevyearrank, sport, year, earnings) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s)""", row)
+    for row in df.itertuples():
+        mycursor.execute('''
+                        INSERT INTO athletes (name, nationality, currentrank, prevyearrank, sport, year, earnings)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        ''', 
+                        (row.name, row.nationality, row.currentrank, 
+                        row.prevyearrank, row.sport, row.year, row.earnings)
+                        )
     
     mydb.commit()
     mycursor.close()
@@ -130,6 +138,21 @@ def page3():
     athletes = mycursor.fetchall()
 
     return render_template('page3.html', athletes=athletes)
+
+@app.route('/lineplot')
+def lineplot():
+    CreateLinePlot()
+    return render_template('lineplot.html', url = '/static/images/line_plot.png')
+
+@app.route('/bargraph')
+def bargraph():
+    CreateBarGraph()
+    return render_template('bargraph.html', url = '/static/images/bar_graph.png')
+
+@app.route('/scatterplot')
+def scatterplot():
+    CreateScatterPlot()
+    return render_template('scatterplot.html', url = '/static/images/scatter_plot.png')
 
 if __name__ == '__main__':
     app.run(debug=True)

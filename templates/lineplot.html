@@ -9,48 +9,26 @@
         <a class="navbar-brand" href="/">CSC206 Database Project</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Richest Athlete by Year</a></li>
+        <li><a href="/">Richest Athlete by Year</a></li>
         <li><a href="/page1">Highest Paid Athlete's Previous Rank</a></li>
         <li><a href="/page2">Average Earnings of Top 10 Per Year</a></li>
         <li><a href="/page3">Range of Earnings by Sport</a></li>
-        <li><a href="/lineplot">Line Plot of Median Earnings Per Year</a></li>
+        <li class="active"><a href="/lineplot">Line Plot of Median Earnings Per Year</a></li>
         <li><a href="/bargraph">Bar Graph Showing Representation of 
           Nationalities in Highest Earning Athletes</a></li>
         <li><a href="/scatterplot">Scatter Plot Showing Top 10 Earnings Per Year</a></li>
       </ul>
     </div>
-  </nav>
+</nav>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="m-2">
-    <h1>Richest Athletes By Year</h1>
-    <p>A table showing the richest athlete per year from 1990 - 2020 and how much money they made that year.</p>
-  </div>
-</div>
+    <div class="m-2">
+        <h1>Line Plot Showing the Median Earnings Per Year</h1>
+        <p>This is a line plot that shows the median earnings for each year.</p>
 
-<div class="container">
-  <div class="m-2">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Year</th>
-          <th scope="col">Athlete</th>
-          <th scope="col">Earnings</th>
-        </tr>
-      </thead>
-      <tbody>
-          {% for row in athletes %}
-          <tr>
-              {% for d in row %}
-                <td>{{ d }}</td>
-              {% endfor %}
-          </tr>
-          {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        <img src={{ url }} alt="Chart">
+    </div>
 </div>
-
 {% endblock %}
